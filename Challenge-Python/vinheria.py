@@ -1,4 +1,14 @@
-tipos = ['Opções de tipos de vinho:','1: Tinto','2: Branco','3: Rosé','8: Esvaziar carrinho','9: Sair']
+#1- Gabriel Oliveira Rodrigues RM98565
+#2- Gabriel Riqueto RM98685
+#3- Lucas Vinicius de Almeida Brigida RM99094
+#4- Leandro Ferreira De Morais RM99064
+#5- Gustavo Bianchi Velonisqui dos Santos RM98534
+
+
+
+
+
+tipos = ['Opções de tipos de vinho:','1: Tinto','2: Branco','3: Rosé','7: Finalizar compra','8: Esvaziar carrinho','9: Sair']
 tinto = ['Opções de vinho Tinto:','1: Cabernet Sauvignon R$100','2: Pinot Noir R$120','3: Tinto Malbec R$80','4: Tinto Merlot R$90','5: Tinto Syrah R$100','0: Voltar']
 branco = ['Opções de vinho Branco:','1: Chardonnay R$80','2: Sauvignon Blanc R$70','3: Riesling R$90','4: Pinot Grigio R$60','0: Voltar']
 rose = ['Opções de vinho Rosé:','1: Cabernet Franc R$70','2: Syrah R$80','3: Grenache R$60','0: Voltar']
@@ -10,6 +20,9 @@ quantidade = 0
 valorTotal = 0
 quantidadeTotal = 0
 confirmar = 0
+valorFinal = 0
+desconto = 0
+pagamento = 0
 msgQuantidade = "Insira a quantidade (valor negativo para retirar): "
 
 #preços
@@ -74,6 +87,10 @@ def valor(valorTotal,quantidade, vinho):
     print('')
     print(f"Valor total: {valorTotal}")
     return valorTotal
+
+
+
+
 
 
 while True:
@@ -208,6 +225,59 @@ while True:
             escolhaRose = int(input('Escolha o vinho desejado: '))
             print('')
             if escolhaRose == 0:
+                escolha = 0
+
+        #Finalizar compra / 7
+        elif(escolha == 7):
+            print(f'Valor total: {valorTotal}  Quantidade: {quantidadeTotal}')
+            confirmar = int(input('Deseja mesmo finalizar a compra? Sim(7) Não(0): '))
+            if(confirmar == 7):
+
+                confirmar2 = 2
+                while not (confirmar2 == 1 or confirmar2 == 0):
+                    print('')
+                    print('Para finalizar a compra, é necessário criar um cadastro. Informe os dados abaixo: ')
+                    print('')
+                    nome = input('Nome completo: ')
+                    email = input('Email: ')
+                    cpf = input('CPF: ')
+                    dataNascimento = input('Data de nascimento (D/M/A) : ')
+                    endereço = input('Endereço (rua, numero, complemento): ')
+                    cep = input('CEP: ')
+                    cidade = input('Cidade: ')
+                    estado = input('Estado: ')
+                    print('')
+                    print(f'Está tudo certo? Nome: {nome} Email: {email} CPF: {cpf} Data de nascimento: {dataNascimento} Endereço: {endereço} CEP: {cep} Cidade: {cidade} Estado: {estado} ')
+                    print('')
+                    try:
+                        while not (confirmar2 == 1 or confirmar2 == 0):
+                            confirmar2 = int(input('Sim (1), Refazer(0): '))
+                    except Exception:
+                        confirmar2 = 2
+
+                if (quantidadeTotal >= 5):
+                    desconto = valorTotal * 0.3
+
+                elif (quantidadeTotal == 4):
+                    desconto = valorTotal * 0.2
+
+                elif (quantidadeTotal == 3):
+                    desconto = valorTotal * 0.1
+
+                else:
+                    valorFinal = valorTotal
+
+                valorFinal = valorTotal - desconto
+                print('')
+                print(f'Desconto: {desconto} Reais. Preço final: {valorFinal} Reais')
+                print('')
+                
+                while not (pagamento == 1 or pagamento == 2 or pagamento == 3 or pagamento == 4):
+                    pagamento = int(input('Pix (1), Boleto(2), Debito(3), Credito(4)'))
+                    print('')
+                break
+
+            elif(confirmar == 0):
                 escolha = 0
 
         #Esvaziar carrinho / 8
